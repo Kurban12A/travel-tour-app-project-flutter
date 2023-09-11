@@ -34,20 +34,28 @@ class _StartElevatedButtonWidget extends StatelessWidget {
       Navigator.pushNamed(context, '/auth');
     }
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 50),
-      child: Align(
-        alignment: Alignment.bottomCenter,
-        child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 148, vertical: 15)),
-            onPressed: onPressed,
-            child: const Text(
-            'Start',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: Colors.black),),
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 0, 16, 40),
+        child: SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+              style: ButtonStyle(
+                padding: MaterialStateProperty.all(const EdgeInsets.symmetric(vertical: 15)),
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24.0),
+                )),
+              ),
+              onPressed: onPressed,
+              child: const Text(
+              'Start',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Colors.black),
+                ),
+          ),
         ),
       ),
     );

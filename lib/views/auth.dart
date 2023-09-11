@@ -8,86 +8,74 @@ class AuthScreenWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
+  void onPressed () {
+    Navigator.of(context).pop();
+  }
+
     return Scaffold(
       appBar: AppBar(
-        title: const Row(
-          children: [
-            _AuthAppBarTextWidget(),
-            _AuthOutlineButtonWidget()
-          ],
-        ),
+        leading: IconButton(
+          onPressed: onPressed, 
+          icon: const Icon(Icons.arrow_back_ios)),
+        centerTitle: true,
+        title: const Text('Sign in', 
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold),),
       ),
-      body: const Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 5, vertical: 5,
-                ),
-                child: Text('ArmeniaTour', 
-                style: TextStyle(
-                  fontSize: 35,
-                  fontWeight: FontWeight.bold
-                ),
-                textAlign: TextAlign.start,),
-              ),
-            ],
+      body: const Center(
+        child:  Column(
+          children: [
+          SizedBox(height: 10,),
+          Text('ArmeniaTour',
+            style: TextStyle(
+              fontSize: 30,
+              height: 1.0,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('DISCOVER AMAZING PLACES', textAlign: TextAlign.center,),
-              ),
-            ],
+          ),
+          Text('DISCOVER AMAZING PLACES',
+            style: TextStyle(
+              fontSize: 10,
+              letterSpacing: 2,
+            ),
+          ),
+          SizedBox(height: 30),
+          Padding(
+            padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+            child: TextField(
+              decoration: InputDecoration(
+                labelText: AutofillHints.email,
+                labelStyle: TextStyle(color: Color.fromARGB(255, 226, 221, 221)),
+                isCollapsed: true,
+                contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 24),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(24)),
+                  borderSide: BorderSide(color: Colors.blueAccent),
+                    )
+                  ),
+                ),
+          ),
+          SizedBox(height: 20),
+          Padding(
+            padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+            child: TextField(
+              decoration:InputDecoration(
+                labelText: AutofillHints.password,
+                labelStyle: TextStyle(color: Color.fromARGB(255, 226, 221, 221)),
+                isCollapsed: true,
+                contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 24),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(24)),
+                  borderSide: BorderSide(color: Colors.blueAccent),
+                    )
+                  ),
+                ),
           ),
         ],
-      ),
+        ),
+      )
+
     );
   }
 }
-
-
-// виджет отвечающий за AppBar кнопку выбора языка
-class _AuthOutlineButtonWidget extends StatelessWidget {
-  const _AuthOutlineButtonWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return OutlinedButton(
-      style: ButtonStyle(
-        padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
-        foregroundColor: MaterialStateProperty.all(Colors.blue)
-      ),
-      child: const Text('English'),
-      onPressed: (){},
-      );
-  }
-}
-
-
-// виджет отвечающий за текст в appbar
-class _AuthAppBarTextWidget extends StatelessWidget {
-  const _AuthAppBarTextWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const Expanded(
-      child: Text('Sign in',
-      textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold),
-          ),
-    );
-  }
-}
-
-
