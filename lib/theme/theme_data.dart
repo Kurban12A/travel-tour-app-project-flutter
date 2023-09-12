@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 //переменная которая будет хранить тему нашего приложения
 final primaryColor = Color(0xFF00C8FF);
 final themeData = ThemeData(
+  buttonTheme: const ButtonThemeData(
+    
+  ),
   primaryColor: primaryColor,
   appBarTheme: const AppBarTheme(
     color: Colors.white,

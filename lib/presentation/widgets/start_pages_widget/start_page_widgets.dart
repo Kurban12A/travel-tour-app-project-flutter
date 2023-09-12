@@ -1,29 +1,9 @@
 import 'package:flutter/material.dart';
-// Kurban 09-09-2023
-
-// Виджет стартовой страницы принимающий в стеке виджеты 
-class StartScreenWidget extends StatelessWidget {
-  const StartScreenWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body:
-        Stack(
-          children:[ 
-            _StartFullScreenImageWidget(),
-            _StartTextWidget(),
-            _StartElevatedButtonWidget(),
-            ]),
-    );       
-  }
-}
-
 
 // виджет отвечающий за кнопку на стартовом экране
 // TODO поработать над кнопкой
-class _StartElevatedButtonWidget extends StatelessWidget {
-  const _StartElevatedButtonWidget({super.key});
+class StartElevatedButtonWidget extends StatelessWidget {
+  const StartElevatedButtonWidget({super.key});
 
 
   @override
@@ -44,7 +24,7 @@ class _StartElevatedButtonWidget extends StatelessWidget {
               style: ButtonStyle(
                 padding: MaterialStateProperty.all(const EdgeInsets.symmetric(vertical: 15)),
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24.0),
+                  borderRadius: BorderRadius.circular(14.0),
                 )),
               ),
               onPressed: onPressed,
@@ -63,14 +43,14 @@ class _StartElevatedButtonWidget extends StatelessWidget {
 }
 
 // Виджет отвеающий за стартовое изображение на экране
-class _StartFullScreenImageWidget extends StatelessWidget {
-  const _StartFullScreenImageWidget({super.key});
+class StartFullScreenImageWidget extends StatelessWidget {
+  const StartFullScreenImageWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: 
-        Image.asset('lib/asset/khor-virap.jpg',
+        Image.asset('lib/asset/image/khor-virap.jpg',
         fit: BoxFit.cover,
         height: double.infinity,
         width: double.infinity,)
@@ -79,8 +59,8 @@ class _StartFullScreenImageWidget extends StatelessWidget {
 }
 
 // виджет отвечающий за текст на стартовой странице
-class _StartTextWidget extends StatelessWidget {
-  const _StartTextWidget({super.key});
+class StartTextWidget extends StatelessWidget {
+  const StartTextWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -111,5 +91,3 @@ class _StartTextWidget extends StatelessWidget {
     );
   }
 }
-
-
