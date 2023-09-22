@@ -9,7 +9,7 @@ class TravelTourApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'ArmeniaTour',
+      title: 'TravelTour',
       theme: themeData,
       routes: routes,
     );

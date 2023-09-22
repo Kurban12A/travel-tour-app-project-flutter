@@ -10,7 +10,7 @@ class StartElevatedButtonWidget extends StatelessWidget {
 
     // route на второй экран
     void onPressed() {
-      Navigator.pushNamed(context, '/auth');
+      Navigator.pushReplacementNamed(context, '/auth');
     }
 
     return Align(

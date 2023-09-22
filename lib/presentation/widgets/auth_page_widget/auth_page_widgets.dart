@@ -24,95 +24,214 @@ class HeaderTextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     return Text(
-      'ArmeniaTour',
+      'TravelTour',
       style: themeData.textTheme.headlineLarge,
     );
   }
 }
 
-class EmailTextFieldWidget extends StatelessWidget {
-  const EmailTextFieldWidget({
-    super.key,
-  });
+class FormWidgets extends StatefulWidget {
+  const FormWidgets({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
-      child: TextField(
-          decoration: InputDecoration(
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xFF00C8FF)),
-          borderRadius: BorderRadius.all(Radius.circular(14)),
-        ),
-        floatingLabelStyle: TextStyle(color: Color(0xFF00C8FF)),
-        labelText: AutofillHints.email,
-        labelStyle: TextStyle(color: Color.fromARGB(255, 226, 221, 221)),
-        isCollapsed: true,
-        contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 24),
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(14))),
-      )),
-    );
-  }
+  State<FormWidgets> createState() => _FormWidgetsState();
 }
 
-class PasswordTextFieldWidget extends StatelessWidget {
-  const PasswordTextFieldWidget({
-    super.key,
-  });
+class _FormWidgetsState extends State<FormWidgets> {
+
+  // обращаемся к контроллерам и берем у них введеный текст
+  final _loginTextController = TextEditingController(text: 'admin');
+  final _passwordTextController = TextEditingController(text: 'admin');
+  String? errorText = null;
+
+  // реализована заглушка для авторизации и переход на главный экран
+  void _authorization() {
+    final login = _loginTextController.text;
+    final password = _passwordTextController.text;
+    // пока выставляем заглушку чтобы перейти на главный экран
+    if (login == 'admin' && password == 'admin') {
+      // если errorText = null то ничего не выводим
+      errorText = null;
+      Navigator.pushReplacementNamed(context, '/mainscreen');
+    } else {
+      // если errorText != null то выводим сообщение об ошибке
+      errorText = 'Invalid username or password';
+    }
+
+    // обновление состояния виджетов
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
+    final errorText = this.errorText;
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-      child: TextField(
-        cursorColor: themeData.colorScheme.secondary,
-        decoration: const InputDecoration(
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(14)),
-                borderSide: BorderSide(color: Color(0xFF00C8FF))),
-            floatingLabelStyle: TextStyle(color: Color(0xFF00C8FF)),
-            labelText: AutofillHints.password,
-            labelStyle: TextStyle(color: Color.fromARGB(255, 226, 221, 221)),
-            isCollapsed: true,
-            contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 24),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(14)),
-            )),
+      child: Column(
+        children: [
+          // ...[] нужен чтобы поместить в массив виджеты
+          if (errorText != null) ...[
+            _ErrorWidget(errorText: errorText),
+            const SizedBox(
+              height: 5,
+            )
+          ],
+          _UserNameWidget(
+              loginTextController: _loginTextController, themeData: themeData),
+          const SizedBox(
+            height: 20,
+          ),
+          _PasswordWidget(
+              passwordTextController: _passwordTextController,
+              themeData: themeData),
+          const SizedBox(
+            height: 5,
+          ),
+          _ForgotPasswordWidget(themeData: themeData),
+          const SizedBox(
+            height: 5,
+          ),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              style: themeData.elevatedButtonTheme.style,
+              onPressed: _authorization,
+              child: const Text(
+                'Log in',
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    color: Color.fromARGB(255, 255, 255, 255)),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
-class LoginElevatedButtonWidget extends StatelessWidget {
-  const LoginElevatedButtonWidget({
+class _ForgotPasswordWidget extends StatelessWidget {
+  const _ForgotPasswordWidget({
     super.key,
+    required this.themeData,
   });
+
+  final ThemeData themeData;
 
   @override
   Widget build(BuildContext context) {
-    final themeData = Theme.of(context);
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-        child: SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            style: themeData.elevatedButtonTheme.style,
-            onPressed: () {},
-            child: const Text(
-              'Log in',
-              style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                  color: Color.fromARGB(255, 255, 255, 255)),
-            ),
-          ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        TextButton(
+          style: themeData.textButtonTheme.style,
+          child: const Text('Forgot password?'),
+          onPressed: () {},
+        ),
+      ],
+    );
+  }
+}
+
+class _PasswordWidget extends StatelessWidget {
+  const _PasswordWidget({
+    super.key,
+    required TextEditingController passwordTextController,
+    required this.themeData,
+  }) : _passwordTextController = passwordTextController;
+
+  final TextEditingController _passwordTextController;
+  final ThemeData themeData;
+
+  @override
+  Widget build(BuildContext context) {
+    const inputDecorationTheme = InputDecoration(
+      focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(14)),
+          borderSide: BorderSide(color: Color(0xFF00C8FF))),
+      floatingLabelStyle: TextStyle(color: Color(0xFF00C8FF)),
+      label: Text('password'),
+      labelStyle: TextStyle(color: Color.fromARGB(255, 226, 221, 221)),
+      isCollapsed: true,
+      contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 24),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(14)),
+        borderSide: BorderSide(
+          color: Color(0xFFE0E0E0),
         ),
       ),
+    );
+
+    return TextField(
+      controller: _passwordTextController,
+      obscureText: true,
+      cursorColor: themeData.colorScheme.secondary,
+      decoration: inputDecorationTheme,
+    );
+  }
+}
+
+class _UserNameWidget extends StatelessWidget {
+  const _UserNameWidget({
+    super.key,
+    required TextEditingController loginTextController,
+    required this.themeData,
+  }) : _loginTextController = loginTextController;
+
+  final TextEditingController _loginTextController;
+  final ThemeData themeData;
+
+  @override
+  Widget build(BuildContext context) {
+    const inputDecorationTheme = InputDecoration(
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Color(0xFF00C8FF)),
+        borderRadius: BorderRadius.all(Radius.circular(14)),
+      ),
+      floatingLabelStyle: TextStyle(color: Color(0xFF00C8FF)),
+      label: Text('username'),
+      labelStyle: TextStyle(color: Color.fromARGB(255, 226, 221, 221)),
+      isCollapsed: true,
+      contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 24),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(14)),
+        borderSide:
+            BorderSide(color: Color(0xFFE0E0E0), style: BorderStyle.solid),
+      ),
+    );
+
+    return TextField(
+      controller: _loginTextController,
+      cursorColor: themeData.colorScheme.secondary,
+      decoration: inputDecorationTheme,
+    );
+  }
+}
+
+class _ErrorWidget extends StatelessWidget {
+  const _ErrorWidget({
+    super.key,
+    required this.errorText,
+  });
+
+  final String? errorText;
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(
+          errorText!,
+          style: const TextStyle(
+              fontSize: 14, 
+              fontWeight: FontWeight.normal,
+              color: Colors.red),
+        ),
+      ],
     );
   }
 }
@@ -125,17 +244,20 @@ class DividerWidget extends StatelessWidget {
     return const SizedBox(
         width: 328,
         height: 45,
-        child: Row(children: [
-          Expanded(
-              child: Divider(
-            color: Colors.black12,
-          )),
-          Text(
-            "  or  ",
-            style: TextStyle(fontWeight: FontWeight.normal),
-          ),
-          Expanded(child: Divider(color: Colors.black12)),
-        ]));
+        child: Row(
+          children: [
+            Expanded(
+                child: Divider(
+              color: Colors.black12,
+            )),
+            Text(
+              "  or  ",
+              style: TextStyle(
+                fontWeight: FontWeight.normal),
+            ),
+            Expanded(child: Divider(
+              color: Colors.black12)),
+          ]));
   }
 }
 
@@ -205,31 +327,6 @@ class FacebookOutlineButtonWidget extends StatelessWidget {
   }
 }
 
-class ForgotTextButtonWidget extends StatelessWidget {
-  const ForgotTextButtonWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final themeData = Theme.of(context);
-    return SizedBox(
-      width: 328,
-      height: 50,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          TextButton(
-            style: themeData.textButtonTheme.style,
-            child: const Text('Forgot password?'),
-            onPressed: () {},
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class SignUpRowWidget extends StatelessWidget {
   const SignUpRowWidget({super.key});
 
@@ -275,19 +372,15 @@ class SkipTextButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
-    return SizedBox(
-      width: 328,
-      height: 50,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          TextButton(
-            style: themeData.textButtonTheme.style,
-            child: const Text('SKIP'),
-            onPressed: () {},
-          ),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        TextButton(
+          style: themeData.textButtonTheme.style,
+          child: const Text('SKIP'),
+          onPressed: () {},
+        ),
+      ],
     );
   }
 }
