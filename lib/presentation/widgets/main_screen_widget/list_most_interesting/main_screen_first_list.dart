@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 
-class MostInterestingWidgets extends StatelessWidget {
-  const MostInterestingWidgets({
+class MostInterestingHeadingWidget extends StatelessWidget {
+  const MostInterestingHeadingWidget({
     super.key,
   });
 
@@ -25,7 +25,7 @@ class MostInterestingWidgets extends StatelessWidget {
                 style: ButtonStyle(
                     minimumSize: MaterialStateProperty.all(Size.zero)),
                 onPressed: () {},
-                child: const Text('See all', style: TextStyle())),
+                child: const Text('See all')),
           )
         ],
       ),
@@ -70,6 +70,19 @@ class CardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    const imageBoxDecoration = BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage('lib/asset/image/garni_temple.jpg'),
+            fit: BoxFit.cover),
+        boxShadow: [
+          BoxShadow(
+              color: Color.fromARGB(115, 66, 66, 66),
+              blurRadius: 5,
+              offset: Offset(1, 1))
+        ],
+        borderRadius: BorderRadius.all(Radius.circular(10)));
+
     return Card(
         surfaceTintColor: Colors.white,
         elevation: 2.0,
@@ -82,18 +95,7 @@ class CardWidget extends StatelessWidget {
                 height: 270,
                 width: 200,
                 child: Container(
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image:
-                                AssetImage('lib/asset/image/garni_temple.jpg'),
-                            fit: BoxFit.cover),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Color.fromARGB(115, 66, 66, 66),
-                              blurRadius: 5,
-                              offset: Offset(1, 1))
-                        ],
-                        borderRadius: BorderRadius.all(Radius.circular(10)))),
+                    decoration: imageBoxDecoration),
               ),
             ),
             const Column(
@@ -151,6 +153,11 @@ class HeadinCardgWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    const textStyle = TextStyle(
+      color: Colors.black38, 
+      fontSize: 10);
+
     return Center(
       child: Container(
           decoration: const BoxDecoration(
@@ -158,61 +165,74 @@ class HeadinCardgWidget extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(10))),
           height: 80,
           width: 190,
-          child: Column(
+          child: const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
+               Padding(
                 padding: EdgeInsets.fromLTRB(10, 8, 0, 0),
                 child: Text(
                   'Zvartnots Temple',
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              const SizedBox(
-                height: 5,
-              ),
+              SizedBox(height: 5),
               Padding(
-                  padding: const EdgeInsets.fromLTRB(7, 0, 0, 0),
-                  child: Row(
-                    children: [
-                      RatingBar.builder(
-                        itemSize: 14,
-                        initialRating: 3,
-                        minRating: 1,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        itemCount: 5,
-                        itemPadding:
-                            const EdgeInsets.symmetric(horizontal: 2.0),
-                        itemBuilder: (context, _) => const Icon(
-                          Icons.circle,
-                          color: Color(0xFF00C8FF),
-                        ),
-                        onRatingUpdate: (rating) {
-                          print(rating);
-                        },
-                      ),
-                      const SizedBox(width: 10),
-                      // future rating number
-                      const Text(
-                        '3,432',
-                        style: TextStyle(color: Colors.black45, fontSize: 12),
-                      ),
-                    ],
-                  )),
-              const SizedBox(
-                height: 5,
-              ),
-              const Padding(
-                padding: EdgeInsets.only(left: 10),
+                  padding: EdgeInsets.fromLTRB(7, 0, 0, 0),
+                  child: RatingBarWidget()),
+              SizedBox(height: 5),
+              Padding(
+                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: Text(
                   'Places that need to be seen routes adsda asdasd ',
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(color: Colors.black38, fontSize: 10),
+                  style: textStyle,
                 ),
               ),
             ],
           )),
+    );
+  }
+}
+
+class RatingBarWidget extends StatelessWidget {
+  const RatingBarWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+
+    const textStyle = TextStyle(
+      color: Colors.black45, 
+      fontSize: 12);
+
+    return Row(
+      children: [
+        RatingBar.builder(
+          itemSize: 14,
+          initialRating: 3,
+          minRating: 1,
+          direction: Axis.horizontal,
+          allowHalfRating: true,
+          itemCount: 5,
+          itemPadding:
+              const EdgeInsets.symmetric(horizontal: 2.0),
+          itemBuilder: (context, _) => const Icon(
+            Icons.circle,
+            color: Color(0xFF00C8FF),
+          ),
+          //TODO delete print
+          onRatingUpdate: (rating) {
+            print(rating);
+          },
+        ),
+        const SizedBox(width: 10),
+        // future rating number
+        const Text(
+          '3,432',
+          style: textStyle,
+        ),
+      ],
     );
   }
 }

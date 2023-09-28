@@ -18,9 +18,11 @@ class AuthScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
-              onPressed: onPressed, icon: const Icon(Icons.arrow_back)),
+              onPressed: onPressed, 
+              icon: const Icon(Icons.arrow_back)),
           centerTitle: true,
-          title: Text('Sign in', 
+          title: Text(
+            'Sign in', 
             style: themeData.appBarTheme.titleTextStyle),
         ),
         body: const SingleChildScrollView(

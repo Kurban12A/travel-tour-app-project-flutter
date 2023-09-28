@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-
+// 28-09-2023 внесены изменения в кнопки 
 class SliverAppBarWidget extends StatelessWidget {
   const SliverAppBarWidget({
     super.key,
@@ -9,12 +9,13 @@ class SliverAppBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SliverAppBar(
+      automaticallyImplyLeading: false,
       snap: true,
       pinned: true,
       floating: true,
       surfaceTintColor: Colors.transparent,
       flexibleSpace: FlexibleSpaceBar(
-        collapseMode: CollapseMode.parallax,),
+        collapseMode: CollapseMode.pin,),
       title:  Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween, 
         children: [
@@ -25,7 +26,7 @@ class SliverAppBarWidget extends StatelessWidget {
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(70),
         child: Padding(
-          padding: EdgeInsets.fromLTRB(16, 0, 16, 15),
+          padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
           child: SearchFormWidget(),
         ),
       ),
@@ -62,6 +63,7 @@ class SearchFormWidget extends StatelessWidget {
   }
 }
 
+
 class FavouriteButtonAppBarWidget extends StatelessWidget {
   const FavouriteButtonAppBarWidget({
     super.key,
@@ -83,6 +85,15 @@ class SelectionCityButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    const textStyle = TextStyle(
+        fontWeight: FontWeight.bold, 
+        color: Color.fromARGB(255, 55, 55, 55));
+
+    final buttonStyle = ButtonStyle(
+        padding: MaterialStateProperty.all(EdgeInsets.zero),
+        iconColor: MaterialStateProperty.all(Colors.black));
+
     return SizedBox(
       height: 25,
       child: TextButton.icon(
@@ -91,16 +102,10 @@ class SelectionCityButton extends StatelessWidget {
           Icons.location_on,
           color: Color.fromARGB(255, 55, 55, 55),
         ),
-        label: const Text(
-          'Yerevan',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Color.fromARGB(255, 55, 55, 55),
-          ),
+        label: const Text('Yerevan',
+          style: textStyle,
         ),
-        style: ButtonStyle(
-            padding: MaterialStateProperty.all(EdgeInsets.zero),
-            iconColor: MaterialStateProperty.all(Colors.black)),
+        style: buttonStyle,
       ),
     );
   }
@@ -114,84 +119,132 @@ class ElevatedButtonWidgets extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
+
+    return const SliverToBoxAdapter(
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+        padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ElevatedButton(
-                style: ButtonStyle(
-                    padding: MaterialStateProperty.all(
-                        const EdgeInsets.fromLTRB(15, 15, 15, 15))),
-                onPressed: () {},
-                child: const Row(
-                  children: [
-                    Icon(
-                      Icons.account_balance_outlined,
-                      color: Colors.white,
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      'Sights',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Color.fromARGB(255, 255, 255, 255)),
-                    ),
-                  ],
-                )),
-            ElevatedButton(
-                style: ButtonStyle(
-                    padding: MaterialStateProperty.all(
-                        const EdgeInsets.fromLTRB(15, 15, 15, 15))),
-                onPressed: () {},
-                child: const Row(
-                  children: [
-                    Icon(
-                      Icons.location_city_outlined,
-                      color: Colors.white,
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      'Hotels',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Color.fromARGB(255, 255, 255, 255)),
-                    ),
-                  ],
-                )),
-            ElevatedButton(
-                style: ButtonStyle(
-                    padding: MaterialStateProperty.all(
-                        const EdgeInsets.fromLTRB(20, 15, 20, 15))),
-                onPressed: () {},
-                child: const Row(
-                  children: [
-                    Icon(
-                      Icons.local_dining_outlined,
-                      color: Colors.white,
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      'Food',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Color.fromARGB(255, 255, 255, 255)),
-                    ),
-                  ],
-                )),
+            SightsButton(),
+            SizedBox(width: 10),
+            HotelsButton(),
+            SizedBox(width: 10),
+            FoodButton(),
           ],
         ),
       ),
+    );
+  }
+}
+
+class FoodButton extends StatelessWidget {
+  const FoodButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+
+    const textStyle = TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+        color: Color.fromARGB(255, 255, 255, 255));
+
+    return Expanded(
+      child: ElevatedButton(
+          style: ButtonStyle(
+              padding: MaterialStateProperty.all(
+                  const EdgeInsets.fromLTRB(10, 10, 10, 10))),
+          onPressed: () {
+      
+          },
+          child: const Column(
+            children: [
+              Icon(
+                Icons.local_dining_outlined,
+                color: Colors.white,
+              ),
+              Text(
+                'Food',
+                style: textStyle,
+              ),
+            ],
+          )),
+    );
+  }
+}
+
+class HotelsButton extends StatelessWidget {
+  const HotelsButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+
+    const textStyle = TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+        color: Color.fromARGB(255, 255, 255, 255));
+
+    void onPressed () {
+      Navigator.pushNamed(context, '/selection_category');
+    }
+
+    return Expanded(
+      child: ElevatedButton(
+        style: ButtonStyle(
+          padding: MaterialStateProperty.all(
+            const EdgeInsets.fromLTRB(10, 10, 10, 10))),
+          onPressed: onPressed,
+          child: const Column(
+           children: [
+             Icon(
+               Icons.location_city_outlined,
+               color: Colors.white,
+             ),
+             Text(
+               'Hotels',
+               style: textStyle,
+             ),
+           ],
+              )),
+    );
+  }
+}
+
+class SightsButton extends StatelessWidget {
+  const SightsButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+
+    const textStyle = TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+        color: Color.fromARGB(255, 255, 255, 255));
+
+    return Expanded(
+      child: ElevatedButton(
+          style: ButtonStyle(
+              padding: MaterialStateProperty.all(
+                  const EdgeInsets.fromLTRB(10, 10, 10, 10))),
+          onPressed: () {},
+          child: const Column(
+            children: [
+              Icon(
+                Icons.account_balance_outlined,
+                color: Colors.white,
+              ),
+              Text(
+                'Sights',
+                style: textStyle,
+              ),
+            ],
+          )),
     );
   }
 }

@@ -1,18 +1,14 @@
-// главный экран
 import 'package:flutter/material.dart';
-import '../../widgets/main_screen_widget/list_hotels/main_screem_third_list.dart';
-import '../../widgets/main_screen_widget/list_most_interesting/main_screen_first_list.dart';
-import '../../widgets/main_screen_widget/list_restaurants/main_screen_second_list.dart';
-import '../../widgets/main_screen_widget/main_screen_widgets.dart';
+import '../../widgets/selection_category_widget/selection_category_widget.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+class SelectionCategory extends StatefulWidget {
+  const SelectionCategory({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<SelectionCategory> createState() => _SelectionCategoryState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _SelectionCategoryState extends State<SelectionCategory> {
   var _selectedPageIndex = 0;
 
   @override
@@ -46,29 +42,20 @@ class _MainScreenState extends State<MainScreen> {
                   Icons.person), 
                   label: 'Profle'),
           ]),
-        body: const CustomScrollView(
-          slivers: [
-            SliverAppBarWidget(),
-            SliverToBoxAdapter(child: SizedBox(height: 5)),
-            ElevatedButtonWidgets(),
-            SliverToBoxAdapter(child: SizedBox(height: 5)),
-            MostInterestingHeadingWidget(),
-            ListInterestingPlacesWidgets(),
-            RestaurantHeadingWidget(),
-            ListRestaurantsWidgets(),
-            HotelsHeadingWidget(),
-            ListHotelsWidget(),
-            
-          ],
-        ));
+      body: const CustomScrollView(slivers: [
+        CategoryAppBarWidget(),
+        CountingPlaces(),
+        SliverToBoxAdapter(child: SizedBox(height: 5)),
+        ListHotelsWidgets(),
+      ]),
+    );
   }
 
-  // отслиживаем состояние по нажатию на иконку в ботомбаре
   void _onTap(int index) {
     setState(() {
       _selectedPageIndex = index;
     });
   }
+    
 }
-
 

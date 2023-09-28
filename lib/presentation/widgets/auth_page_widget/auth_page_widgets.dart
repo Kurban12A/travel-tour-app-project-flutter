@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class DiscriptionHeaderTextWidget extends StatelessWidget {
   const DiscriptionHeaderTextWidget({
     super.key,
@@ -14,6 +15,7 @@ class DiscriptionHeaderTextWidget extends StatelessWidget {
     );
   }
 }
+
 
 class HeaderTextWidget extends StatelessWidget {
   const HeaderTextWidget({
@@ -64,8 +66,14 @@ class _FormWidgetsState extends State<FormWidgets> {
 
   @override
   Widget build(BuildContext context) {
+    
     final themeData = Theme.of(context);
     final errorText = this.errorText;
+    const loginTextStyle = TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w700,
+      color: Color.fromARGB(255, 255, 255, 255));
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
       child: Column(
@@ -73,25 +81,18 @@ class _FormWidgetsState extends State<FormWidgets> {
           // ...[] нужен чтобы поместить в массив виджеты
           if (errorText != null) ...[
             _ErrorWidget(errorText: errorText),
-            const SizedBox(
-              height: 5,
-            )
+            const SizedBox(height: 5)
           ],
           _UserNameWidget(
-              loginTextController: _loginTextController, themeData: themeData),
-          const SizedBox(
-            height: 20,
-          ),
+              loginTextController: _loginTextController, 
+              themeData: themeData),
+          const SizedBox(height: 20),
           _PasswordWidget(
               passwordTextController: _passwordTextController,
               themeData: themeData),
-          const SizedBox(
-            height: 5,
-          ),
+          const SizedBox( height: 5),
           _ForgotPasswordWidget(themeData: themeData),
-          const SizedBox(
-            height: 5,
-          ),
+          const SizedBox(height: 5),
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
@@ -99,10 +100,7 @@ class _FormWidgetsState extends State<FormWidgets> {
               onPressed: _authorization,
               child: const Text(
                 'Log in',
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                    color: Color.fromARGB(255, 255, 255, 255)),
+                style: loginTextStyle,
               ),
             ),
           ),
@@ -111,6 +109,7 @@ class _FormWidgetsState extends State<FormWidgets> {
     );
   }
 }
+
 
 class _ForgotPasswordWidget extends StatelessWidget {
   const _ForgotPasswordWidget({
@@ -134,6 +133,7 @@ class _ForgotPasswordWidget extends StatelessWidget {
     );
   }
 }
+
 
 class _PasswordWidget extends StatelessWidget {
   const _PasswordWidget({
@@ -173,6 +173,7 @@ class _PasswordWidget extends StatelessWidget {
   }
 }
 
+
 class _UserNameWidget extends StatelessWidget {
   const _UserNameWidget({
     super.key,
@@ -210,6 +211,7 @@ class _UserNameWidget extends StatelessWidget {
   }
 }
 
+
 class _ErrorWidget extends StatelessWidget {
   const _ErrorWidget({
     super.key,
@@ -221,20 +223,23 @@ class _ErrorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    const mediumErrorTextStyle = TextStyle(
+        fontSize: 14, 
+        fontWeight: FontWeight.normal, 
+        color: Colors.red);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
           errorText!,
-          style: const TextStyle(
-              fontSize: 14, 
-              fontWeight: FontWeight.normal,
-              color: Colors.red),
+          style: mediumErrorTextStyle,
         ),
       ],
     );
   }
 }
+
 
 class DividerWidget extends StatelessWidget {
   const DividerWidget({super.key});
@@ -260,6 +265,7 @@ class DividerWidget extends StatelessWidget {
           ]));
   }
 }
+
 
 class GoogleOutlinedButtonWidget extends StatelessWidget {
   const GoogleOutlinedButtonWidget({
@@ -294,6 +300,7 @@ class GoogleOutlinedButtonWidget extends StatelessWidget {
   }
 }
 
+
 class FacebookOutlineButtonWidget extends StatelessWidget {
   const FacebookOutlineButtonWidget({
     super.key,
@@ -326,6 +333,7 @@ class FacebookOutlineButtonWidget extends StatelessWidget {
     );
   }
 }
+
 
 class SignUpRowWidget extends StatelessWidget {
   const SignUpRowWidget({super.key});
@@ -364,21 +372,33 @@ class SignUpRowWidget extends StatelessWidget {
   }
 }
 
-class SkipTextButtonWidget extends StatelessWidget {
+
+class SkipTextButtonWidget extends StatefulWidget {
   const SkipTextButtonWidget({
     super.key,
   });
 
   @override
+  State<SkipTextButtonWidget> createState() => _SkipTextButtonWidgetState();
+}
+
+class _SkipTextButtonWidgetState extends State<SkipTextButtonWidget> {
+
+  void onPressed () {
+    Navigator.pushReplacementNamed(context, '/mainscreen');
+  }
+
+  @override
   Widget build(BuildContext context) {
+
     final themeData = Theme.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         TextButton(
           style: themeData.textButtonTheme.style,
+          onPressed: onPressed,
           child: const Text('SKIP'),
-          onPressed: () {},
         ),
       ],
     );

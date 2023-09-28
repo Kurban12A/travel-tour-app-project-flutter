@@ -30,6 +30,10 @@ flutter:
   - lib/asset/image/garni_temple.jpg
   - lib/asset/image/mao.jpg
   - lib/asset/image/ani_plaza.jpg
+  - lib/asset/image/hotel-courtyard-entrance.jpg
+  - lib/asset/image/Grand_Hotel_Yerevan.jpg
+  - lib/asset/image/Hotel_test.jpg
+  - lib/asset/image/Google_maps.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

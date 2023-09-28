@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 const primaryColor = Color(0xFF00C8FF);
 const hintColor = Color.fromARGB(255, 168, 170, 171);
 
+
 final themeData = ThemeData(
 
   
@@ -21,8 +22,16 @@ final themeData = ThemeData(
     color: Colors.white,
   ),
 
+
   // тема  bottomNavigationBarTheme (нижняя панель) в приложении
-  bottomNavigationBarTheme: BottomNavigationBarThemeData(),
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    selectedItemColor: primaryColor,
+    landscapeLayout: BottomNavigationBarLandscapeLayout.spread,
+    unselectedItemColor: hintColor,
+    selectedLabelStyle:
+      TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+    ),
+  
 
   // тема текста в приложении
   textTheme: const TextTheme(
@@ -41,7 +50,6 @@ final themeData = ThemeData(
   ),
 
 
-
   // тема кнопок в приложении
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
@@ -55,6 +63,7 @@ final themeData = ThemeData(
     ),
   ),
 
+
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: ButtonStyle(
       side: MaterialStateProperty.all(const BorderSide(
@@ -67,6 +76,7 @@ final themeData = ThemeData(
       )),
     ),
   ),
+
 
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(

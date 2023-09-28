@@ -1,18 +1,14 @@
-// главный экран
 import 'package:flutter/material.dart';
-import '../../widgets/main_screen_widget/list_hotels/main_screem_third_list.dart';
-import '../../widgets/main_screen_widget/list_most_interesting/main_screen_first_list.dart';
-import '../../widgets/main_screen_widget/list_restaurants/main_screen_second_list.dart';
-import '../../widgets/main_screen_widget/main_screen_widgets.dart';
+import '../../widgets/selection_card_widgets/selection_card_widgets.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+class SelectionCard extends StatefulWidget {
+  const SelectionCard({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<SelectionCard> createState() => _SelectionCardState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _SelectionCardState extends State<SelectionCard> {
   var _selectedPageIndex = 0;
 
   @override
@@ -46,29 +42,18 @@ class _MainScreenState extends State<MainScreen> {
                   Icons.person), 
                   label: 'Profle'),
           ]),
-        body: const CustomScrollView(
-          slivers: [
-            SliverAppBarWidget(),
-            SliverToBoxAdapter(child: SizedBox(height: 5)),
-            ElevatedButtonWidgets(),
-            SliverToBoxAdapter(child: SizedBox(height: 5)),
-            MostInterestingHeadingWidget(),
-            ListInterestingPlacesWidgets(),
-            RestaurantHeadingWidget(),
-            ListRestaurantsWidgets(),
-            HotelsHeadingWidget(),
-            ListHotelsWidget(),
-            
-          ],
-        ));
+      body: const CustomScrollView(slivers: [
+        CardAppBarWidget(),
+        SliverToBoxAdapter(child: SizedBox(height: 15)),
+        InformationAboutCard(),
+      ]),
+    );
   }
 
-  // отслиживаем состояние по нажатию на иконку в ботомбаре
   void _onTap(int index) {
     setState(() {
       _selectedPageIndex = index;
     });
   }
+    
 }
-
-
