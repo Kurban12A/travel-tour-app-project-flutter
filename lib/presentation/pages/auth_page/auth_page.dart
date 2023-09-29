@@ -32,7 +32,7 @@ class AuthScreen extends StatelessWidget {
             children: [
               HeaderTextWidget(),
               DiscriptionHeaderTextWidget(),
-              SizedBox(height: 15),
+              SizedBox(height: 25),
               FormWidgets(),
               SizedBox(height: 5),
               SignUpRowWidget(),

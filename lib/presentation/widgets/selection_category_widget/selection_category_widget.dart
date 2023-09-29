@@ -175,8 +175,9 @@ class ImageCardBox extends StatelessWidget {
         ],
         borderRadius: BorderRadius.all(Radius.circular(10)));
 
-    return Stack(alignment: Alignment.bottomCenter, children: [
-      SizedBox(
+    return Stack(
+      alignment: Alignment.bottomCenter, 
+      children: [SizedBox(
         height: 250,
         width: double.infinity,
         child: Container(

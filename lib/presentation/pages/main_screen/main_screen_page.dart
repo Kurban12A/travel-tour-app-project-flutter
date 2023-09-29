@@ -14,6 +14,8 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   var _selectedPageIndex = 0;
+  // контроллер для вызова страницы
+  final _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,30 +46,73 @@ class _MainScreenState extends State<MainScreen> {
             BottomNavigationBarItem(
                 icon: Icon(
                   Icons.person), 
-                  label: 'Profle'),
-          ]),
-        body: const CustomScrollView(
-          slivers: [
-            SliverAppBarWidget(),
-            SliverToBoxAdapter(child: SizedBox(height: 5)),
-            ElevatedButtonWidgets(),
-            SliverToBoxAdapter(child: SizedBox(height: 5)),
-            MostInterestingHeadingWidget(),
-            ListInterestingPlacesWidgets(),
-            RestaurantHeadingWidget(),
-            ListRestaurantsWidgets(),
-            HotelsHeadingWidget(),
-            ListHotelsWidget(),
-            
-          ],
-        ));
+                  label: 'Profile'),
+            ],
+          ),
+        body: PageView(
+          controller: _pageController,
+          // проверяем какая вкладка выбрана при скроле вправо страницы
+          onPageChanged: (value) {
+            setState(() {
+              _selectedPageIndex = value;
+            });
+          },
+          children: const [
+            MainCustomScrollView(),
+            // Заглушки для вкладок
+            Scaffold(
+              body: Center(child: Text('Search'),),
+            ),
+            Scaffold(
+              body: Center(child: Text('Favorites'),)
+            ),
+            Scaffold(
+              body: Center(child: Text('Profile'),)
+            ),
+            ])
+        
+        );
   }
 
   // отслиживаем состояние по нажатию на иконку в ботомбаре
   void _onTap(int index) {
+    // в условии указываем, что если выбранная вкладка = индексу то делаем ранний выход.
+    // таким образом мы не обновляем стейт если вкладка уже выбрана
+    if (_selectedPageIndex == index) return;
     setState(() {
       _selectedPageIndex = index;
+      // анимация при переключении вкладок
+      _pageController.animateToPage(
+        index,
+        duration: const Duration(microseconds: 350),
+        curve: Curves.linear,
+        );
     });
+  }
+}
+
+class MainCustomScrollView extends StatelessWidget {
+  const MainCustomScrollView({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const CustomScrollView(
+      slivers: [
+        SliverAppBarWidget(),
+        SliverToBoxAdapter(child: SizedBox(height: 5)),
+        ElevatedButtonWidgets(),
+        SliverToBoxAdapter(child: SizedBox(height: 5)),
+        MostInterestingHeadingWidget(),
+        ListInterestingPlacesWidgets(),
+        RestaurantHeadingWidget(),
+        ListRestaurantsWidgets(),
+        HotelsHeadingWidget(),
+        ListHotelsWidget(),
+      ],
+      
+    );
   }
 }
 
