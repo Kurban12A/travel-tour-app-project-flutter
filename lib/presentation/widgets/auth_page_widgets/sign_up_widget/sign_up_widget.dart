@@ -42,16 +42,16 @@ class FormWidgets extends StatefulWidget {
 class _FormWidgetsState extends State<FormWidgets> {
 
   // обращаемся к контроллерам и берем у них введеный текст
-  final _loginTextController = TextEditingController(text: 'admin');
+  final _emailTextController = TextEditingController(text: 'admin');
   final _passwordTextController = TextEditingController(text: 'admin');
   String? errorText = null;
 
   // реализована заглушка для авторизации и переход на главный экран
   void _authorization() {
-    final login = _loginTextController.text;
+    final email = _emailTextController.text;
     final password = _passwordTextController.text;
     // пока выставляем заглушку чтобы перейти на главный экран
-    if (login == 'admin' && password == 'admin') {
+    if (email == 'admin' && password == 'admin') {
       // если errorText = null то ничего не выводим
       errorText = null;
       Navigator.pushReplacementNamed(context, '/mainscreen');
@@ -69,7 +69,7 @@ class _FormWidgetsState extends State<FormWidgets> {
     
     final themeData = Theme.of(context);
     final errorText = this.errorText;
-    const loginTextStyle = TextStyle(
+    const emailTextStyle = TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.w700,
       color: Color.fromARGB(255, 255, 255, 255));
@@ -83,24 +83,25 @@ class _FormWidgetsState extends State<FormWidgets> {
             _ErrorWidget(errorText: errorText),
             const SizedBox(height: 5)
           ],
-          _UserNameWidget(
-              loginTextController: _loginTextController, 
+          const _LoginWidget(),
+          const SizedBox(height: 20),
+          _EmailWidget(
+              emailTextController: _emailTextController, 
               themeData: themeData),
           const SizedBox(height: 20),
           _PasswordWidget(
               passwordTextController: _passwordTextController,
               themeData: themeData),
-          const SizedBox( height: 5),
-          _ForgotPasswordWidget(themeData: themeData),
-          const SizedBox(height: 5),
+          const SizedBox(height: 25),
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
               style: themeData.elevatedButtonTheme.style,
+              //TODO убрать авторизацию с кнопки
               onPressed: _authorization,
               child: const Text(
-                'Log in',
-                style: loginTextStyle,
+                'Sign up',
+                style: emailTextStyle,
               ),
             ),
           ),
@@ -111,29 +112,37 @@ class _FormWidgetsState extends State<FormWidgets> {
 }
 
 
-class _ForgotPasswordWidget extends StatelessWidget {
-  const _ForgotPasswordWidget({
+class _LoginWidget extends StatelessWidget {
+  const _LoginWidget({
     super.key,
-    required this.themeData,
   });
-
-  final ThemeData themeData;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        TextButton(
-          style: themeData.textButtonTheme.style,
-          child: const Text('Forgot password?'),
-          onPressed: () {},
+    final themeData = Theme.of(context);
+    const inputDecorationTheme = InputDecoration(
+      focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(14)),
+          borderSide: BorderSide(color: Color(0xFF00C8FF))),
+      floatingLabelStyle: TextStyle(color: Color(0xFF00C8FF)),
+      label: Text('login'),
+      labelStyle: TextStyle(color: Color.fromARGB(255, 226, 221, 221)),
+      isCollapsed: true,
+      contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 24),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(14)),
+        borderSide: BorderSide(
+          color: Color(0xFFE0E0E0),
         ),
-      ],
+      ),
+    );
+
+    return TextField(
+      decoration: inputDecorationTheme,
+      cursorColor: themeData.colorScheme.secondary,
     );
   }
 }
-
 
 class _PasswordWidget extends StatelessWidget {
   const _PasswordWidget({
@@ -174,12 +183,12 @@ class _PasswordWidget extends StatelessWidget {
 }
 
 
-class _UserNameWidget extends StatelessWidget {
-  const _UserNameWidget({
+class _EmailWidget extends StatelessWidget {
+  const _EmailWidget({
     super.key,
-    required TextEditingController loginTextController,
+    required TextEditingController emailTextController,
     required this.themeData,
-  }) : _loginTextController = loginTextController;
+  }) : _loginTextController = emailTextController;
 
   final TextEditingController _loginTextController;
   final ThemeData themeData;
@@ -192,7 +201,7 @@ class _UserNameWidget extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(14)),
       ),
       floatingLabelStyle: TextStyle(color: Color(0xFF00C8FF)),
-      label: Text('username'),
+      label: Text('email'),
       labelStyle: TextStyle(color: Color.fromARGB(255, 226, 221, 221)),
       isCollapsed: true,
       contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 24),
@@ -329,44 +338,6 @@ class FacebookOutlineButtonWidget extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-
-class SignUpRowWidget extends StatelessWidget {
-  const SignUpRowWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    const textColor = TextStyle(
-        fontWeight: FontWeight.normal,
-        fontSize: 14,
-        decorationColor: Color(0xFF00C8FF),
-        decoration: TextDecoration.underline);
-
-    return SizedBox(
-      width: 328,
-      height: 45,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text(
-            "Don't have an account?",
-            style: TextStyle(fontWeight: FontWeight.normal),
-          ),
-          TextButton(
-            style: TextButton.styleFrom(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 5,
-              ),
-              foregroundColor: const Color(0xFF00C8FF),
-            ),
-            child: const Text('Sign up', style: textColor),
-            onPressed: () {},
-          ),
-        ],
       ),
     );
   }

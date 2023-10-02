@@ -45,7 +45,7 @@ class StartFormWidget extends StatelessWidget {
     );
 
     void onPressed() {
-      Navigator.pushReplacementNamed(context, '/auth');
+      Navigator.pushReplacementNamed(context, '/signIn');
     }
 
     return Padding(

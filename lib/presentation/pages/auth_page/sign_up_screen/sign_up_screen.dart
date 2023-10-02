@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
+import '../../../widgets/auth_page_widgets/sign_up_widget/sign_up_widget.dart';
 
-import '../../widgets/auth_page_widget/auth_page_widgets.dart';
-
-// Kurban 10-09-2023
-// Kurban изменен 12.09.2023
-class AuthScreen extends StatelessWidget {
-  const AuthScreen({super.key});
+// Kurban 02-10-2023
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +20,7 @@ class AuthScreen extends StatelessWidget {
               icon: const Icon(Icons.arrow_back)),
           centerTitle: true,
           title: Text(
-            'Sign in', 
+            'Sign up', 
             style: themeData.appBarTheme.titleTextStyle),
         ),
         body: const SingleChildScrollView(
@@ -34,11 +32,9 @@ class AuthScreen extends StatelessWidget {
               DiscriptionHeaderTextWidget(),
               SizedBox(height: 25),
               FormWidgets(),
-              SizedBox(height: 5),
-              SignUpRowWidget(),
-              SizedBox(height: 10),
+              SizedBox(height: 15),
               DividerWidget(),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               GoogleOutlinedButtonWidget(),
               SizedBox(height: 20),
               FacebookOutlineButtonWidget(),
