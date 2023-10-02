@@ -263,13 +263,15 @@ class TitleCardWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        SizedBox(
-            width: 260,
-            height: 50,
+        Expanded(
+          child: SizedBox(
+            width: 200,
             child: Text('Holiday Inn Yerevan - Republic Square, an IHG Hotel',
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: textTheme.textTheme.titleLarge)),
+                style: textTheme.textTheme.titleLarge),
+          ),
+        ),
         Text('\$127', style: textTheme.textTheme.titleLarge),
       ],
     );
