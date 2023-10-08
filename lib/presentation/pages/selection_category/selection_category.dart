@@ -202,9 +202,7 @@ class ListHotelsWidgets extends StatelessWidget {
       color: Colors.black54,
     );
 
-    void onPressed() {
-      Navigator.pushNamed(context, '/mainscreen');
-    }
+
 
     return CustomScrollView(
       slivers: [
@@ -217,191 +215,625 @@ class ListHotelsWidgets extends StatelessWidget {
         flexibleSpace: const FlexibleSpaceBar(
           collapseMode: CollapseMode.pin,
         ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton(
-                padding: const EdgeInsets.only(right: 10),
-                onPressed: onPressed,
-                icon: const Icon(Icons.arrow_back)),
-            Text(
-              'Hotels of City',
-              style: themeData.appBarTheme.titleTextStyle,
-            ),
-            IconButton(
-                style: ButtonStyle(
-                    overlayColor:
-                        MaterialStateProperty.all(Colors.transparent)),
-                padding: const EdgeInsets.only(left: 10),
-                onPressed: () {},
-                icon: const Icon(Icons.favorite,
-                    color: Color.fromARGB(255, 175, 173, 173))),
-          ],
-        ),
+        title: TitleSliverAppBar(themeData: themeData),
+        shadowColor: Colors.black26,
         bottom: PreferredSize(
             preferredSize: const Size.fromHeight(70),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-              child: TextFormField(
-                controller: _searchController,
-                decoration: const InputDecoration(
-                  label: Text('search'),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFF00C8FF)),
-                    borderRadius: BorderRadius.all(Radius.circular(14)),
-                  ),
-                  floatingLabelStyle: TextStyle(color: Color(0xFF00C8FF)),
-                  labelStyle:
-                      TextStyle(color: Color.fromARGB(255, 226, 221, 221)),
-                  isCollapsed: true,
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 15, horizontal: 24),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(14)),
-                    borderSide: BorderSide(
-                        color: Color(0xFFE0E0E0), style: BorderStyle.solid),
-                  ),
-                ),
-              ),
+            child: SearchTextField(searchController: _searchController),
             )),
-      ),
-      SliverToBoxAdapter(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text('${_filteredHotels.length} places found', 
-              style: textStyle),
-            ],
-          ),
-        ),
-      ),
-      const SliverToBoxAdapter(child: SizedBox(height: 5)),
-      SliverList.builder(
-        itemCount: _filteredHotels.length,
-        itemBuilder: (context, index) {
-          final hotelsCard = _filteredHotels[index];
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            child: Stack(
-              children: [
-                Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    SizedBox(
-                      height: 250,
-                      width: double.infinity,
-                      child: Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage(hotelsCard.image),
-                                  fit: BoxFit.cover),
-                              boxShadow: const [
-                                BoxShadow(
-                                    color: Color.fromARGB(115, 54, 54, 54),
-                                    blurRadius: 5,
-                                    offset: Offset(2, 2))
-                              ],
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10)))),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(6.0),
-                      child: Container(
-                          decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          height: 90,
-                          width: double.infinity,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    SizedBox(
-                                      width: 185,
-                                      child: Text(
-                                        hotelsCard.title,
-                                        style: const TextStyle(fontSize: 16),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                    Text(
-                                      hotelsCard.price,
-                                      style: pricetextStyle,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 5),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(7, 0, 0, 0),
-                                child: Row(
-                                  children: [
-                                    RatingBar.builder(
-                                      itemSize: 14,
-                                      initialRating: 3,
-                                      minRating: 1,
-                                      direction: Axis.horizontal,
-                                      allowHalfRating: true,
-                                      itemCount: 5,
-                                      itemPadding: const EdgeInsets.symmetric(
-                                          horizontal: 2.0),
-                                      itemBuilder: (context, _) => const Icon(
-                                        Icons.circle,
-                                        color: Color(0xFF00C8FF),
-                                      ),
-                                      onRatingUpdate: (rating) {
-                                        //TODO delete print
-                                        print(rating);
-                                      },
-                                    ),
-                                    const SizedBox(width: 10),
-                                    // future rating number
-                                    Text(
-                                      hotelsCard.rating,
-                                      style: ratingTextsyle,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 5),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 10),
-                                child: SizedBox(
-                                  height: 15,
-                                  child: TextButton(
-                                    style: bookingButtonStyle,
-                                    onPressed: () {},
-                                    child: const Row(
-                                      children: [
-                                        Text('Booking.com'),
-                                        SizedBox(width: 5),
-                                        Icon(size: 16, Icons.launch),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )),
-                    ),
-                  ],
-                ),
-                const CategoryFavouriteIconButton(),
-                const CardButton(),
-              ],
-            ),
-          );
-        },
-      ),
+      NumberOfPlaces(filteredHotels: _filteredHotels, textStyle: textStyle),
+      const SliverToBoxAdapter(
+        child: SizedBox(height: 5)),
+      ListOfPlaces(
+        filteredHotels: _filteredHotels, 
+        pricetextStyle: pricetextStyle, 
+        ratingTextsyle: ratingTextsyle, 
+        bookingButtonStyle: bookingButtonStyle),
     ]);
   }
 }
+
+class ListOfPlaces extends StatelessWidget {
+  const ListOfPlaces({
+    super.key,
+    required List<Hotels> filteredHotels,
+    required this.pricetextStyle,
+    required this.ratingTextsyle,
+    required this.bookingButtonStyle,
+  }) : _filteredHotels = filteredHotels;
+
+  final List<Hotels> _filteredHotels;
+  final TextStyle pricetextStyle;
+  final TextStyle ratingTextsyle;
+  final ButtonStyle bookingButtonStyle;
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverList.builder(
+      itemCount: _filteredHotels.length,
+      itemBuilder: (context, index) {
+        final hotelsCard = _filteredHotels[index];
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          child: Stack(
+            children: [
+              Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  SizedBox(
+                    height: 250,
+                    width: double.infinity,
+                    child: CardImage(
+                      hotelsCard: hotelsCard),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: NestedContainer(
+                      hotelsCard: hotelsCard, 
+                      pricetextStyle: pricetextStyle, 
+                      ratingTextsyle: ratingTextsyle, 
+                      bookingButtonStyle: bookingButtonStyle),
+                  ),
+                ],
+              ),
+              const CategoryFavouriteIconButton(),
+              const CardButton(),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class NestedContainer extends StatelessWidget {
+  const NestedContainer({
+    super.key,
+    required this.hotelsCard,
+    required this.pricetextStyle,
+    required this.ratingTextsyle,
+    required this.bookingButtonStyle,
+  });
+
+  final Hotels hotelsCard;
+  final TextStyle pricetextStyle;
+  final TextStyle ratingTextsyle;
+  final ButtonStyle bookingButtonStyle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius:
+                BorderRadius.all(Radius.circular(10))),
+        height: 90,
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding:
+                  const EdgeInsets.fromLTRB(10, 10, 10, 0),
+              child: Row(
+                mainAxisAlignment:
+                    MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: 185,
+                    child: Text(
+                      hotelsCard.title,
+                      style: const TextStyle(fontSize: 16),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Text(
+                    hotelsCard.price,
+                    style: pricetextStyle,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(7, 0, 0, 0),
+              child: Row(
+                children: [
+                  RatingBar.builder(
+                    itemSize: 14,
+                    initialRating: 3,
+                    minRating: 1,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemCount: 5,
+                    itemPadding: const EdgeInsets.symmetric(
+                        horizontal: 2.0),
+                    itemBuilder: (context, _) => const Icon(
+                      Icons.circle,
+                      color: Color(0xFF00C8FF),
+                    ),
+                    onRatingUpdate: (rating) {
+                      //TODO delete print
+                      print(rating);
+                    },
+                  ),
+                  const SizedBox(width: 10),
+                  // future rating number
+                  Text(
+                    hotelsCard.rating,
+                    style: ratingTextsyle,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: SizedBox(
+                height: 15,
+                child: TextButton(
+                  style: bookingButtonStyle,
+                  onPressed: () {},
+                  child: const Row(
+                    children: [
+                      Text('Booking.com'),
+                      SizedBox(width: 5),
+                      Icon(size: 16, Icons.launch),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ));
+  }
+}
+
+class CardImage extends StatelessWidget {
+  const CardImage({
+    super.key,
+    required this.hotelsCard,
+  });
+
+  final Hotels hotelsCard;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(hotelsCard.image),
+                fit: BoxFit.cover),
+            boxShadow: const [
+              BoxShadow(
+                  color: Color.fromARGB(115, 54, 54, 54),
+                  blurRadius: 5,
+                  offset: Offset(2, 2))
+            ],
+            borderRadius:
+                const BorderRadius.all(Radius.circular(10))));
+  }
+}
+
+class NumberOfPlaces extends StatelessWidget {
+  const NumberOfPlaces({
+    super.key,
+    required List<Hotels> filteredHotels,
+    required this.textStyle,
+  }) : _filteredHotels = filteredHotels;
+
+  final List<Hotels> _filteredHotels;
+  final TextStyle textStyle;
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text('${_filteredHotels.length} places found', 
+            style: textStyle),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SearchTextField extends StatelessWidget {
+  const SearchTextField({
+    super.key,
+    required TextEditingController searchController,
+  }) : _searchController = searchController;
+
+  final TextEditingController _searchController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+        child: TextFormField(
+          controller: _searchController,
+          decoration: const InputDecoration(
+            label:  Text('search'),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Color(0xFF00C8FF)),
+              borderRadius: BorderRadius.all(Radius.circular(14)),
+            ),
+            floatingLabelStyle: TextStyle(color: Color(0xFF00C8FF)),
+            labelStyle:
+                TextStyle(color: Color.fromARGB(255, 226, 221, 221)),
+            isCollapsed: true,
+            contentPadding:
+                EdgeInsets.symmetric(vertical: 15, horizontal: 24),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(14)),
+              borderSide: BorderSide(
+                  color: Color(0xFFE0E0E0), style: BorderStyle.solid),
+            ),
+          prefixIcon: Icon(Icons.search),
+          ),
+        ),
+      );
+  }
+}
+
+class TitleSliverAppBar extends StatelessWidget {
+  const TitleSliverAppBar({
+    super.key,
+    required this.themeData,
+  });
+
+  final ThemeData themeData;
+
+  @override
+  Widget build(BuildContext context) {
+
+    void onPressed() {
+      Navigator.pushNamed(context, '/mainscreen');
+    }
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        IconButton(
+            padding: const EdgeInsets.only(right: 10),
+            onPressed: onPressed,
+            icon: const Icon(Icons.arrow_back)),
+        Text(
+          'Hotels of City',
+          style: themeData.appBarTheme.titleTextStyle,
+        ),
+        IconButton(
+            style: ButtonStyle(
+                overlayColor:
+                    MaterialStateProperty.all(Colors.transparent)),
+            padding: const EdgeInsets.only(left: 10),
+            onPressed: () {
+              showModalBottomSheet(
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                context: context, 
+                builder: (context) => const Padding(
+                  padding:  EdgeInsets.only(top: 80),
+                  child: FilteredBottomSheet(),
+                  ) 
+                  );
+            },
+            icon: const Icon(Icons.tune,
+                color: Color.fromARGB(255, 91, 90, 90))),
+      ],
+    );
+  }
+}
+
+class FilteredBottomSheet extends StatefulWidget {
+  const FilteredBottomSheet({
+    super.key,
+  });
+
+  @override
+  State<FilteredBottomSheet> createState() => _FilteredBottomSheetState();
+}
+
+int? listItem = 0;
+List<String?> itemWidgets = <String?>[
+  'Ranking',
+  'Price',
+  'Best value',
+];
+
+int? ratingItem = 0;
+List<String?> ratingWidgets = <String?>[
+  '5',
+  '4',
+  '3',
+  '2',
+];
+
+int? classItem = 0;
+List<String?> classWidgets = <String?>[
+  '5',
+  '4',
+  '3',
+  '2',
+];
+
+enum FacilitiesFilter { wife, breakfast, parking, pool, spa, bar }
+enum StyleFilter { business, budget, family, romantic, modern, luxury }
+
+class _FilteredBottomSheetState extends State<FilteredBottomSheet> {
+  Set<FacilitiesFilter> filters = <FacilitiesFilter>{};
+  Set<StyleFilter> styleFilters = <StyleFilter>{};
+  
+
+  @override
+  Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
+    const applyFilterTextStyle = TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w700,
+      color: Color.fromARGB(255, 255, 255, 255));
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      child: ListView(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+                width: double.infinity,
+                child: HandleBottomSheet()),
+            const SizedBox(
+              height: 15,
+            ),
+            const TitleFilterAndResetBottom(),
+            const SizedBox(height: 12),
+            const Text(
+              'Sort by',
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 15),
+            ),
+            const SizedBox(height: 5),
+            Wrap(
+              spacing: 10.0,
+              children: List<Widget>.generate(
+                itemWidgets.length,
+                (int index) {
+                  return ChoiceChip(
+                    selectedColor: const Color(0xFF00C8FF),
+                    label: Text(
+                      '${itemWidgets[index]}',
+                      style: const TextStyle(
+                          fontWeight: FontWeight.normal, color: Colors.black),
+                    ),
+                    selected: listItem == index,
+                    onSelected: (bool selected) {
+                      setState(() {
+                        listItem = selected ? index : null;
+                      });
+                    },
+                  );
+                },
+              ).toList(),
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'Traveler rating',
+              style: TextStyle(fontWeight: FontWeight.w500,
+              fontSize: 15),
+            ),
+            const SizedBox(height: 5),
+            Wrap(
+              spacing: 10.0,
+              children: List<Widget>.generate(
+                ratingWidgets.length,
+                (int index) {
+                  return ChoiceChip(
+                    selectedColor: const Color(0xFF00C8FF),
+                    label: Text(
+                      '${ratingWidgets[index]}',
+                      style: const TextStyle(
+                          fontWeight: FontWeight.normal, color: Colors.black),
+                    ),
+                    selected: ratingItem == index,
+                    onSelected: (bool selected) {
+                      setState(() {
+                        ratingItem = selected ? index : null;
+                      });
+                    },
+                  );
+                },
+              ).toList(),
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'Hotel class',
+              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),
+            ),
+            const SizedBox(height: 5),
+            Wrap(
+              spacing: 10.0,
+              children: List<Widget>.generate(
+                classWidgets.length,
+                (int index) {
+                  return ChoiceChip(
+                    selectedColor: const Color(0xFF00C8FF),
+                    label: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          '${classWidgets[index]}',
+                          style: const TextStyle(
+                              fontWeight: FontWeight.normal, color: Colors.black),
+                        ),
+                        const SizedBox(width: 2,),
+                        const Icon(Icons.star, size: 12,)
+                      ],
+                    ),
+                    selected: classItem == index,
+                    onSelected: (bool selected) {
+                      setState(() {
+                        classItem = selected ? index : null;
+                      });
+                    },
+                  );
+                },
+              ).toList(),
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'Facilities',
+              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),
+            ),
+            const SizedBox(height: 5),
+            Wrap(
+              spacing: 10.0,
+              children: FacilitiesFilter.values.map((FacilitiesFilter exercise) {
+                return FilterChip(
+                  selectedColor: const Color(0xFF00C8FF),
+                  label: Text(exercise.name.replaceFirst(
+                    exercise.name[0], exercise.name[0].toUpperCase()),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.normal),
+                    ),
+                  selected: filters.contains(exercise),
+                  onSelected: (bool selected) {
+                    setState(() {
+                      if (selected) {
+                        filters.add(exercise);
+                      } else {
+                        filters.remove(exercise);
+                      }
+                    });
+                  },
+                );
+              }).toList(),
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'Style',
+              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),
+            ),
+            const SizedBox(height: 5),
+            Wrap(
+              spacing: 10.0,
+              children: StyleFilter.values.map((StyleFilter filter) {
+                return FilterChip(
+                  selectedColor: const Color(0xFF00C8FF),
+                  label: Text(
+                    filter.name.replaceFirst(
+                      filter.name[0], filter.name[0].toUpperCase()),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.normal), ),
+                  selected: styleFilters.contains(filter),
+                  onSelected: (bool selected) {
+                    setState(() {
+                      if (selected) {
+                        styleFilters.add(filter);
+                      } else {
+                        styleFilters.remove(filter);
+                      }
+                    });
+                  },
+                );
+              }).toList(),
+            ),
+            const SizedBox(height: 12),
+            ApplyFilterButton(themeData: themeData, applyFilterTextStyle: applyFilterTextStyle),
+          const SizedBox(height: 12),
+          ],
+        ),
+      ]),
+    );
+  }
+}
+
+class ApplyFilterButton extends StatelessWidget {
+  const ApplyFilterButton({
+    super.key,
+    required this.themeData,
+    required this.applyFilterTextStyle,
+  });
+
+  final ThemeData themeData;
+  final TextStyle applyFilterTextStyle;
+
+  @override
+  Widget build(BuildContext context) {
+    const loginTextStyle = TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w700,
+        color: Color.fromARGB(255, 255, 255, 255));
+    return SizedBox(
+    width: double.infinity,
+    child: ElevatedButton(
+      style: themeData.elevatedButtonTheme.style,
+      onPressed: (){},
+      child: const Text(
+        'Apply filters',
+        style: loginTextStyle,
+      ),
+    ),
+          );
+  }
+}
+
+class TitleFilterAndResetBottom extends StatelessWidget {
+  const TitleFilterAndResetBottom({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        const Text(
+          'Filters',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+        ),
+        GestureDetector(
+            onTap: () {
+              print('TAP');
+            },
+            child: const Text(
+              'RESET',
+              style: TextStyle(
+                  decoration: TextDecoration.underline,
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.black45),
+            )),
+      ],
+    );
+  }
+}
+
+class HandleBottomSheet extends StatelessWidget {
+  const HandleBottomSheet({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          height: 3,
+          width: 60,
+          color: const Color.fromARGB(221, 180, 180, 180),
+        ),
+      ],
+    );
+  }
+}
+

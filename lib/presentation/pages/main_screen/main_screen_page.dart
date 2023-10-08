@@ -4,6 +4,9 @@ import '../../widgets/main_screen_widget/list_hotels/main_screem_third_list.dart
 import '../../widgets/main_screen_widget/list_most_interesting/main_screen_first_list.dart';
 import '../../widgets/main_screen_widget/list_restaurants/main_screen_second_list.dart';
 import '../../widgets/main_screen_widget/main_screen_widgets.dart';
+import '../favourite/favourite_page.dart';
+import '../profile/profile_page.dart';
+import '../search/seacrh_page.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -42,7 +45,7 @@ class _MainScreenState extends State<MainScreen> {
             BottomNavigationBarItem(
                 icon: Icon(
                   Icons.favorite), 
-                  label: 'Favorites'),
+                  label: 'Favourites'),
             BottomNavigationBarItem(
                 icon: Icon(
                   Icons.person), 
@@ -60,15 +63,9 @@ class _MainScreenState extends State<MainScreen> {
           children: const [
             MainCustomScrollView(),
             // Заглушки для вкладок
-            Scaffold(
-              body: Center(child: Text('Search'),),
-            ),
-            Scaffold(
-              body: Center(child: Text('Favorites'),)
-            ),
-            Scaffold(
-              body: Center(child: Text('Profile'),)
-            ),
+            SearchPage(),
+            FavouritePage(),
+            ProfilePage(),
             ])
         
         );

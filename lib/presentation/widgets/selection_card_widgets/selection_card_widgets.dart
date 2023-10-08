@@ -393,7 +393,7 @@ class _ExpandedTextWidgetState extends State<ExpandedTextWidget> {
     //TODO вернуться и изменить логику отбора длины строки
     if (widget.text.length > 200) {
       firstHalf = widget.text.substring(0, 200);
-      firstHalf = widget.text.substring(201, widget.text.length);
+      secondHalf = widget.text.substring(201, widget.text.length);
     } else {
       firstHalf = widget.text;
       secondHalf = '';

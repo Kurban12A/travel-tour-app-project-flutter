@@ -107,3 +107,42 @@ class _ErrorWidget extends StatelessWidget {
   }
 }
 
+class ForgotImage extends StatelessWidget {
+  const ForgotImage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 250,
+      width: 250,
+      child: Image.asset('lib/asset/image/forgot.png'),
+    );
+  }
+}
+
+class HeadingTextAndDesciption extends StatelessWidget {
+  const HeadingTextAndDesciption({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        children: [
+          Text('Forgot password?',
+          style: TextStyle(
+            fontSize: 18
+          ),),
+          SizedBox(height: 5),
+          Text(
+            'Don\'t worry it happens. Please enter email associated with your account.',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontWeight: FontWeight.normal,
+              color: Colors.black87,
+            ),)
+        ],
+      ),
+    );
+  }
+}

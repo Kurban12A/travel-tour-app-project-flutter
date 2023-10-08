@@ -38,30 +38,3 @@ class SuccessScreen extends StatelessWidget {
 }
 
 
-class SuccessImage extends StatelessWidget {
-  const SuccessImage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 300,
-      width: 300,
-      child: Image.asset('lib/asset/image/success.png'),
-    );
-  }
-}
-
-class HeadingTextAndDesciption extends StatelessWidget {
-  const HeadingTextAndDesciption({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      child: Text('You\'re all set!',
-      style: TextStyle(
-        fontSize: 18
-      ),),
-    );
-  }
-}

@@ -10,6 +10,7 @@ class SliverAppBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return const SliverAppBar(
       automaticallyImplyLeading: false,
+      shadowColor: Colors.black26,
       snap: true,
       pinned: true,
       floating: true,
@@ -43,6 +44,7 @@ class SearchFormWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       decoration: const InputDecoration(
+        prefixIcon: Icon(Icons.search),
         label: Text('search'),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Color(0xFF00C8FF)),
